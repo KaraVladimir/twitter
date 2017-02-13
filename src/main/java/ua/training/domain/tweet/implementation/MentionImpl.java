@@ -1,23 +1,27 @@
 package ua.training.domain.tweet.implementation;
 
-import ua.training.domain.tweet.Mention;
 import ua.training.domain.tweet.Message;
-import ua.training.domain.User;
+import ua.training.domain.user.User;
 
 import java.util.List;
 
 /**
  * @author kara.vladimir2@gmail.com.
  */
-public class MentionImpl extends AbstractMessage implements Mention {
+public class MentionImpl extends AbstractMessage{
     private List<User> userList;
 
-    public MentionImpl(List<User> userList,String text) {
+    public MentionImpl(User author, List<User> userList, String text) {
+        super(author);
         this.text = text;
         this.userList = userList;
     }
 
-    public Message reply(String text) {
-        return null;
+    protected Message getIncludedTweet() {
+        return this;
+    }
+
+    protected Message getRootTweet() {
+        return this;
     }
 }
