@@ -2,6 +2,7 @@ package ua.training.domain.user;
 
 import ua.training.domain.tweet.Message;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +14,13 @@ public class UserImpl implements User,Profile {
     List<User> followers;
     List<Message> messages;
 
-    public void Follow(User anotherUser) {
+    public UserImpl() {
+        followings = new ArrayList<>();
+        followers = new ArrayList<>();
+        messages = new ArrayList<>();
+    }
+
+    public void follow(User anotherUser) {
         followings.add(anotherUser);
         anotherUser.addFollower(this);
     }

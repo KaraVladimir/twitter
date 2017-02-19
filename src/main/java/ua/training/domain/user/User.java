@@ -8,7 +8,7 @@ import java.util.List;
  * @author kara.vladimir2@gmail.com.
  */
 public interface User {
-    void Follow(User anotherUser);
+    void follow(User anotherUser);
 
     void UnFollow(User anotherUser);
 

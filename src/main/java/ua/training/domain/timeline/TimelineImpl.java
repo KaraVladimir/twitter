@@ -6,6 +6,7 @@ import ua.training.domain.tweet.implementation.TweetImpl;
 import ua.training.domain.user.User;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -32,9 +33,9 @@ public class TimelineImpl implements Timeline{
     }
 
     public List<Message> getTimeline() {
-        currentUser.getFollowing();
-//        Stream.builder().add()
-//        currentUser.getMessages().stream().
+        List<User>users = currentUser.getFollowing();
+        users.add(currentUser);
+        timeline = users.stream().flatMap(u -> u.getMessages().stream()).collect(Collectors.toList());
         return timeline;
     }
 }
