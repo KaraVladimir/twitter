@@ -9,12 +9,11 @@ import java.util.List;
  * @author kara.vladimir2@gmail.com.
  */
 public class ReplyImpl extends AbstractMessage {
-    private List<User> userList;
     private Message rootTweet;
 
     public ReplyImpl(User author, List<User> userList, String text, Message rootTweet) {
         super(author);
-        this.userList = userList;
+        this.mentionedUsers = userList;
         this.rootTweet = rootTweet;
         this.text = text;
     }

@@ -45,7 +45,10 @@ public class UserImplTest {
 
     @Test
     public void unfollowTest() {
-
+        currentUser.unfollow(anotherUser);
+        verify(followings, times(1)).remove(anotherUser);
+        verify(anotherUser).removeFollower(currentUser);
     }
+
 
 }

@@ -25,7 +25,7 @@ public class UserImpl implements User,Profile {
         anotherUser.addFollower(this);
     }
 
-    public void UnFollow(User anotherUser) {
+    public void unfollow(User anotherUser) {
         followings.remove(anotherUser);
         anotherUser.removeFollower(this);
     }

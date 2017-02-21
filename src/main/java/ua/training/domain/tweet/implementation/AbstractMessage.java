@@ -3,6 +3,7 @@ package ua.training.domain.tweet.implementation;
 import ua.training.domain.tweet.Message;
 import ua.training.domain.user.User;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,10 +18,15 @@ public abstract class AbstractMessage implements Message{
     protected List<User> usersLiked;
     protected List<User> usersRetweeted;
     protected List<Message> replies;
+    List<User> mentionedUsers;
 
     AbstractMessage(User author) {
         this.author = author;
         this.date = new Date();
+        usersLiked = new ArrayList<>();
+        usersRetweeted = new ArrayList<>();
+        replies = new ArrayList<>();
+        mentionedUsers = new ArrayList<>();
     }
 
     public void like(User currentUser) {
@@ -41,7 +47,7 @@ public abstract class AbstractMessage implements Message{
     }
 
     public Message reply(User currentUser, String text) {
-        List<User> users = new LinkedList<User>();
+        List<User> users = getMentionedUsers();
         users.add(this.author);
         Message rootTweet = getRootTweet();
         Message reply = new ReplyImpl(currentUser, users, text, getRootTweet());
@@ -55,6 +61,10 @@ public abstract class AbstractMessage implements Message{
 
     public void addReply(Message reply) {
         replies.add(reply);
+    }
+
+    public List<User> getMentionedUsers() {
+        return mentionedUsers;
     }
 
     protected abstract Message getRootTweet();

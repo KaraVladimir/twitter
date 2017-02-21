@@ -2,6 +2,8 @@ package ua.training.domain.tweet;
 
 import ua.training.domain.user.User;
 
+import java.util.List;
+
 /**
  * @author kara.vladimir2@gmail.com.
  */
@@ -20,4 +22,6 @@ public interface Message {
     int replyCount();
 
     void addReply(Message reply);
+
+    List<User> getMentionedUsers();
 }

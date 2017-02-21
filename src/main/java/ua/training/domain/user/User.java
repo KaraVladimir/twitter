@@ -10,7 +10,7 @@ import java.util.List;
 public interface User {
     void follow(User anotherUser);
 
-    void UnFollow(User anotherUser);
+    void unfollow(User anotherUser);
 
     List<User> getFollowing();
 
