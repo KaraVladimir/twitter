@@ -2,11 +2,14 @@ package ua.training.domain.tweet.implementation;
 
 import ua.training.domain.tweet.Message;
 import ua.training.domain.user.User;
+import ua.training.domain.user.UsersStorage;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author kara.vladimir2@gmail.com.
@@ -18,7 +21,6 @@ public abstract class AbstractMessage implements Message{
     protected List<User> usersLiked;
     protected List<User> usersRetweeted;
     protected List<Message> replies;
-    List<User> mentionedUsers;
 
     AbstractMessage(User author) {
         this.author = author;
@@ -26,7 +28,6 @@ public abstract class AbstractMessage implements Message{
         usersLiked = new ArrayList<>();
         usersRetweeted = new ArrayList<>();
         replies = new ArrayList<>();
-        mentionedUsers = new ArrayList<>();
     }
 
     public void like(User currentUser) {
@@ -47,7 +48,7 @@ public abstract class AbstractMessage implements Message{
     }
 
     public Message reply(User currentUser, String text) {
-        List<User> users = getMentionedUsers();
+        List<User> users = getMentionedUsers(text);
         users.add(this.author);
         Message rootTweet = getRootTweet();
         Message reply = new ReplyImpl(currentUser, users, text, getRootTweet());
@@ -63,8 +64,14 @@ public abstract class AbstractMessage implements Message{
         replies.add(reply);
     }
 
-    public List<User> getMentionedUsers() {
-        return mentionedUsers;
+    public List<User> getMentionedUsers(String text) {
+        List<User> users = new ArrayList<>();
+        Pattern pattern = Pattern.compile("(@{1})([^\\s]+)");
+        Matcher matcher = pattern.matcher(text);
+        while (matcher.find()) {
+            users.add(UsersStorage.findUser(matcher.group(2)));
+        }
+        return users;
     }
 
     protected abstract Message getRootTweet();

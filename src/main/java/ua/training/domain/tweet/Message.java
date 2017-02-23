@@ -23,5 +23,5 @@ public interface Message {
 
     void addReply(Message reply);
 
-    List<User> getMentionedUsers();
+    List<User> getMentionedUsers(String text);
 }

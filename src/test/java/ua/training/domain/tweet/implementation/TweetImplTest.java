@@ -81,4 +81,10 @@ public class TweetImplTest {
         verify(replies, times(1)).size();
     }
 
+    @Test
+    public void getMentionedUsersTest() {
+        List<User> users = tweet.getMentionedUsers("@name1 something withoutspace@name2");
+        Assert.assertEquals(users.size(),2);
+    }
+
 }

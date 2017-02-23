@@ -13,7 +13,7 @@ public class ReplyImpl extends AbstractMessage {
 
     public ReplyImpl(User author, List<User> userList, String text, Message rootTweet) {
         super(author);
-        this.mentionedUsers = userList;
+//        this.mentionedUsers = userList;
         this.rootTweet = rootTweet;
         this.text = text;
     }

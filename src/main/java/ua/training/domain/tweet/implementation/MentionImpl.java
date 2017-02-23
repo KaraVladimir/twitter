@@ -11,10 +11,10 @@ import java.util.List;
 public class MentionImpl extends AbstractMessage{
     private List<User> userList;
 
-    public MentionImpl(User author, List<User> userList, String text) {
+    public MentionImpl(User author, String text) {
         super(author);
         this.text = text;
-        this.userList = userList;
+        this.userList = getMentionedUsers(text);
     }
 
     protected Message getIncludedTweet() {
